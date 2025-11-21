@@ -1,0 +1,20 @@
+body {
+    font-family: Arial;
+    margin: 40px;
+}
+
+form {
+    width: 300px;
+}
+
+input, select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    background: #0066ff;
+    color: white;
+    padding: 10px;
+    border: none;
+}

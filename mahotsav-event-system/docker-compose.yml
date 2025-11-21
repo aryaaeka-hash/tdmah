@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8081:80"   # changed to 8081
+    depends_on:
+      - mariadb
+
+  php:
+    build: ./php
+    container_name: php-mahotsav
+    ports:
+      - "8080:80"   # keep PHP on 8080
+    volumes:
+      - ./php/public:/var/www/html
+      - ./php/config:/var/www/config
+      - ./php/src:/var/www/src
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:11
+    container_name: maria-mahotsav
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mahotsav
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./mariadb:/docker-entrypoint-initdb.d
+
+volumes:
+  mariadb_data:
+  
